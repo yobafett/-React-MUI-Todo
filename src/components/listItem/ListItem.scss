@@ -1,0 +1,59 @@
+.list-item {
+    border-bottom: 2px #d2ab85 solid;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 130px;
+
+    .content {
+        position: relative;
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: #d2ab85;
+        padding: 0 10px;
+        border-right: 2px #d2ab85 solid;
+
+        .date-time {
+            position: absolute;
+            right: 10px;
+            bottom: 0;
+            font-size: 12px;
+
+            span {
+                margin-right: 5px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    button {
+        background: none;
+        outline: none;
+        border: none;
+        cursor: pointer;
+
+        img {
+            transition: all 0.25s;
+            filter: invert(70%) sepia(33%) saturate(357%) hue-rotate(348deg) brightness(95%) contrast(87%);
+
+            &:hover {
+                filter: invert(70%) sepia(33%) saturate(357%) hue-rotate(348deg) brightness(120%) contrast(87%);
+            }
+        }
+    }
+
+    input {
+        background: none;
+        outline: none;
+        border: none;
+        color: #d2ab85;
+        width: 100%;
+        margin-left: 15px;
+        height: 100%;
+        font-size: 20px;
+    }
+}
