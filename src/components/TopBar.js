@@ -7,7 +7,7 @@ import { TaskAlt } from '@mui/icons-material';
 
 const TopBar = () => {
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{mb: 2}}>
             <Toolbar>
                 <IconButton color="inherit" sx={{ mr: 2 }}>
                     <TaskAlt />
