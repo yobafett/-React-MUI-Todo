@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { Container, List } from '@mui/material';
 
 import TopBar from './TopBar';
 import ListItem from './ListItem';
 import ItemInput from './ItemInput';
-import { Container } from '@mui/material';
 
 const TodoList = () => {
     const [todoList, setTodoList] = useState([]);
@@ -41,7 +41,7 @@ const TodoList = () => {
         <>
             <TopBar />
             <Container>
-                <ul className="notes-list">{listItems}</ul>
+                <List>{listItems}</List>
                 <ItemInput addNote={addNote} />
             </Container>
         </>

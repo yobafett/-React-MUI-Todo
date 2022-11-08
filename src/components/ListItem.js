@@ -1,65 +1,100 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
+import {
+    ListItem as MUIListItem,
+    ListItemAvatar,
+    ListItemText,
+    IconButton,
+    Checkbox,
+    TextField
+} from '@mui/material';
 
 const ListItem = (props) => {
     const { item, i, filterTodoListByArrId, updateNote } = props;
+
     const date = new Date(item.date);
     const dateString = `${date.getDay()}/${date.getMonth("en-US")}`;
     const timeString = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 
-    const [editId, setEditId] = useState(0);
-    const inputEdit = useRef();
+    const [editId, setEditId] = useState(-1);
+    const [editFieldContent, setEditFieldContent] = useState('');
 
-    const delElement = (e, arrId) => {
-        e.preventDefault();
-        filterTodoListByArrId(arrId);
+    const delElement = () => {
+        filterTodoListByArrId(i);
     }
 
-    const editElement = (e, id = 0) => {
-        e.preventDefault();
-        setEditId(id);
+    const editElement = () => {
+        setEditFieldContent(item.note)
+        setEditId(item.id);
     }
 
-    const saveEdit = (e, id) => {
-        e.preventDefault();
+    const closeEdit = () => {
+        setEditId(-1);
+    }
 
-        updateNote(id, inputEdit.current.value);
-
-        editElement(e);
+    const saveEdit = () => {
+        updateNote(item.id, editFieldContent);
+        closeEdit();
     }
 
     const liContent = (
-        <>
-            <div className="content">
-                <span onClick={(e) => editElement(e, item.id)}>
-                    {`${i + 1}. ${item.note}`}
-                </span>
-                <div className='date-time'>
-                    <span>{dateString}</span>
-                    <span>{timeString}</span>
-                </div>
-            </div>
-            <button onClick={(e) => delElement(e, i)}>
-            </button>
-        </>
+        <ListItemText
+            primary={`${item.note}`}
+            secondary={`${timeString} / ${dateString}`}
+        />
     )
 
     const liEdit = (
+        <TextField id="standard-basic"
+            value={editFieldContent}
+            onChange={(e) => setEditFieldContent(e.target.value)}
+            label={`${timeString} / ${dateString}`}
+            variant="standard" />
+    );
+
+    const defaultButtonSet = (
         <>
-            <input ref={inputEdit} type="text" defaultValue={item.note} />
-            <div>
-                <button onClick={(e) => saveEdit(e, item.id)}>
-                </button>
-                <button onClick={(e) => editElement(e)}>
-                </button>
-            </div>
+            <IconButton edge="end"
+                aria-label="edit"
+                onClick={editElement}>
+                <EditIcon />
+            </IconButton>
+            <IconButton edge="end"
+                aria-label="delete"
+                onClick={delElement}>
+                <DeleteIcon />
+            </IconButton>
+        </>
+    );
+
+    const editButtonSet = (
+        <>
+            <IconButton edge="end"
+                aria-label="save"
+                onClick={saveEdit}>
+                <SaveIcon />
+            </IconButton>
+            <IconButton edge="end"
+                aria-label="cancel"
+                onClick={closeEdit}>
+                <CancelIcon />
+            </IconButton>
         </>
     );
 
     return (
-        <li className='list-item'>
+        <MUIListItem secondaryAction={
+            item.id === editId ? editButtonSet : defaultButtonSet
+        }>
+            <ListItemAvatar>
+                <Checkbox />
+            </ListItemAvatar>
             {item.id === editId ? liEdit : liContent}
-        </li>
-    );
+        </MUIListItem >
+    )
 }
 
 export default ListItem;
