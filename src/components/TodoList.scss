@@ -1,0 +1,22 @@
+// fade-appear, fade-appear-active, fade-appear-done
+// fade-enter, fade-enter-active, fade-enter-done
+// fade-exit, fade-exit-active, fade-exit-done
+
+.list-item-enter {
+    opacity: 0;
+}
+
+.list-item-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+}
+
+.list-item-exit {
+    opacity: 1;
+}
+
+.list-item-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+}
+

@@ -86,9 +86,7 @@ const ListItem = (props) => {
     );
 
     return (
-        <MUIListItem secondaryAction={
-            item.id === editId ? editButtonSet : defaultButtonSet
-        }>
+        <MUIListItem secondaryAction={item.id === editId ? editButtonSet : defaultButtonSet}>
             <ListItemAvatar>
                 <Checkbox />
             </ListItemAvatar>

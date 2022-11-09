@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Container, List } from '@mui/material';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import TopBar from './TopBar';
 import ListItem from './ListItem';
 import ItemInput from './ItemInput';
+import './TodoList.scss';
 
 const TodoList = () => {
     const [todoList, setTodoList] = useState([]);
@@ -32,16 +34,26 @@ const TodoList = () => {
     }
 
     const listItems = todoList.map((item, i) => {
-        return <ListItem key={item.id} item={item} i={i}
-            filterTodoListByArrId={filterTodoListByArrId}
-            updateNote={updateNote} />
+        return (
+            <CSSTransition
+                key={item.id}
+                timeout={1000}
+                classNames="list-item">
+                <ListItem item={item} i={i}
+                    filterTodoListByArrId={filterTodoListByArrId}
+                    updateNote={updateNote} />
+            </CSSTransition>
+        )
     })
 
     return (
         <>
             <TopBar />
             <Container>
-                <List>{listItems}</List>
+                <TransitionGroup component={List}>
+                    {listItems}
+                </TransitionGroup>
+
                 <ItemInput addNote={addNote} />
             </Container>
         </>
