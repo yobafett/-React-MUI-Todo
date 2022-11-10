@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { Box, FormControl, TextField, Button } from '@mui/material';
 import { Send } from '@mui/icons-material';
 
-import './ItemInput.scss';
-
 const ItemInput = (props) => {
     const [inputValue, setInputValue] = useState('');
 
@@ -16,8 +14,19 @@ const ItemInput = (props) => {
         setInputValue(e.target.value);
     }
 
+    const styles = {
+        position: 'fixed',
+        bottom: 0,
+        maxWidth: '500px',
+        padding: '20px',
+        left: 0,
+        right: 0,
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    }
+
     return (
-        <FormControl fullWidth variant="standard" className='item-input'>
+        <FormControl fullWidth variant="standard" sx={styles}>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                 <TextField
                     label="Note text"
