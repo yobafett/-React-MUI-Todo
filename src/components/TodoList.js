@@ -15,7 +15,8 @@ const TodoList = () => {
         setTodoList([...todoList, {
             id: uuidv4(),
             date: Date.now(),
-            note: content
+            note: content,
+            done: false
         }]);
     }
 
@@ -33,6 +34,16 @@ const TodoList = () => {
         }))
     }
 
+    const updateDoneStatus = (id, value) => {
+        setTodoList(todoList.map(item => {
+            if (item.id === id) {
+                item.done = value;
+            }
+
+            return item;
+        }))
+    }
+
     const listItems = todoList.map((item, i) => {
         return (
             <CSSTransition
@@ -41,6 +52,7 @@ const TodoList = () => {
                 classNames="list-item">
                 <ListItem item={item} i={i}
                     filterTodoListByArrId={filterTodoListByArrId}
+                    updateDoneStatus={updateDoneStatus}
                     updateNote={updateNote} />
             </CSSTransition>
         )

@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 
 const ListItem = (props) => {
-    const { item, i, filterTodoListByArrId, updateNote } = props;
+    const { item, i, filterTodoListByArrId, updateNote, updateDoneStatus } = props;
 
     const date = new Date(item.date);
     const dateString = `${date.getDay()}/${date.getMonth("en-US")}`;
@@ -40,8 +40,13 @@ const ListItem = (props) => {
         closeEdit();
     }
 
+    const checkHandler = (e) => {
+        updateDoneStatus(item.id, e.target.checked)
+    }
+
     const liContent = (
         <ListItemText
+            sx={{ textDecoration: item.done ? 'line-through' : 'none' }}
             primary={`${item.note}`}
             secondary={`${timeString} / ${dateString}`}
         />
@@ -88,7 +93,7 @@ const ListItem = (props) => {
     return (
         <MUIListItem secondaryAction={item.id === editId ? editButtonSet : defaultButtonSet}>
             <ListItemAvatar>
-                <Checkbox />
+                <Checkbox checked={item.done} onChange={checkHandler} />
             </ListItemAvatar>
             {item.id === editId ? liEdit : liContent}
         </MUIListItem >
